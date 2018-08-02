@@ -1,0 +1,32 @@
+<div class="container">
+  <div class="row padding-top-bottom-20">
+    <div class="col-sm-3"></div>
+      <div class="col-sm-6 border padding-top-bottom-20">
+        <form>
+          <div class="row">
+            <div class="col-sm-10 form-group">
+              <label for="cardNumber">Card Number</label>
+              <input [(ngModel)]="cardNumber" name="cardNumber" type="alphanumeric" class="form-control" id="cardNumber" aria-describedby="cardHelp"
+                maxlength="19" cardNumberFormat onlyNumber placeholder="XXXX-XXXX-XXXX-XXXX" (keyup)="checkCircuit($event)">
+              <small id="cardHelp" class="form-text text-muted">Enter your credit card number</small>
+            </div>
+            <div class="col-sm-2"> 	
+                <i *ngIf="!enableVisa && !enableMC" class="fa fa-credit-card circuit-size"></i>
+                <i *ngIf="enableVisa && !enableMC" class="fa fa-cc-visa circuit-size"></i>
+                <i *ngIf="!enableVisa && enableMC" class="fa fa fa-cc-mastercard circuit-size"></i>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-sm-10 form-group">
+              <div class="form-group">
+                <label for="cardHolderName">Card Holder</label>
+                <input type="text" class="form-control" id="cardHolderName" placeholder="Enter card holder's name">
+              </div>
+            </div>
+          </div>
+          <button type="submit" class="btn btn-primary">PAY</button>
+        </form>
+      </div>
+    <div class="col-sm-3"></div>
+  </div>
+</div>
