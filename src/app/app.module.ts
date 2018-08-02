@@ -8,7 +8,6 @@ import { CardValidatorComponent } from './components/card-validator/card-validat
 import { CardNumberFormatDirective } from './directives/card-number-format.directive';
 import { OnlyNumberDirective } from './directives/only-number.directive';
 
-
 @NgModule({
   declarations: [
     AppComponent,

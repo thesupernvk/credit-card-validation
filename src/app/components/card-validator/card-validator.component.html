@@ -3,28 +3,73 @@
     <div class="col-sm-3"></div>
       <div class="col-sm-6 border padding-top-bottom-20">
         <form>
+          <!-- Card Number -->
           <div class="row">
-            <div class="col-sm-10 form-group">
-              <label for="cardNumber">Card Number</label>
+            <div class="col-sm-3 col-3"><label for="cardNumber">Card Number</label></div>
+            <div class="col-sm-6 col-7 form-group">
               <input [(ngModel)]="cardNumber" name="cardNumber" type="alphanumeric" class="form-control" id="cardNumber" aria-describedby="cardHelp"
-                maxlength="19" cardNumberFormat onlyNumber placeholder="XXXX-XXXX-XXXX-XXXX" (keyup)="checkCircuit($event)">
-              <small id="cardHelp" class="form-text text-muted">Enter your credit card number</small>
+                [ngClass]="{'is-invalid' : !cardValid}"
+                maxlength="19" minlength="13" cardNumberFormat onlyNumber placeholder="XXXX-XXXX-XXXX-XXXX" (keyup)="checkCircuit($event)" (blur)="validateCard(cardNumber)">
+              <small id="cardHelp" class="form-text text-muted" *ngIf="cardValid">Enter your credit card number</small>
+              <small id="cardError" class="form-text text-danger" *ngIf="!cardValid">INVALID CARD NUMBER</small>
             </div>
-            <div class="col-sm-2"> 	
-                <i *ngIf="!enableVisa && !enableMC" class="fa fa-credit-card circuit-size"></i>
-                <i *ngIf="enableVisa && !enableMC" class="fa fa-cc-visa circuit-size"></i>
-                <i *ngIf="!enableVisa && enableMC" class="fa fa fa-cc-mastercard circuit-size"></i>
+            <div class="col-sm-2 col-1"> 	
+                <i class="circuit-size fa" [ngClass]="{
+                  'fa-credit-card' : !enableVisa && !enableMC && !enableAmex && !enableDiners,
+                  'fa-cc-visa' : enableVisa,
+                  'fa-cc-mastercard' : enableMC,
+                  'fa-cc-amex' : enableAmex,
+                  'fa-cc-diners-club' : enableDiners }">
+                </i>
             </div>
           </div>
+          <!-- Card Holder -->
           <div class="row">
-            <div class="col-sm-10 form-group">
+            <div class="col-sm-3 col-3"><label for="cardHolderName">Card Holder</label></div>
+            <div class="col-sm-8 col-8 form-group">
               <div class="form-group">
-                <label for="cardHolderName">Card Holder</label>
                 <input type="text" class="form-control" id="cardHolderName" placeholder="Enter card holder's name">
               </div>
             </div>
           </div>
-          <button type="submit" class="btn btn-primary">PAY</button>
+          <!-- Expiry Details -->
+          <div class="row">
+            <div class="col-sm-3 col-3"><label for="expiryMonth">Expiry date </label></div>
+            <div class="col-sm-8 col-8 form-group">
+              <div class="form-group">
+                <div class="row">
+                  <div class="col-sm-3 col-5">
+                    <select class="form-control" id="expiryMonth">
+                      <option *ngFor="let month of months">{{month}}</option>
+                    </select>
+                  </div>
+                  <div class="col-sm-4 col-6">
+                    <select class="form-control" id="expiryYear">
+                      <option *ngFor="let year of years">{{year}}</option>
+                    </select>
+                  </div>
+                </div>               
+              </div>
+            </div>
+          </div>
+          <!-- CVV -->
+          <div class="row">
+            <div class="col-sm-3 col-3"><label for="cvv">CVV Number </label></div>
+            <div class="col-sm-2 col-2 form-group">
+              <div class="form-group">
+                <input type="text" maxlength="4" onlyNumber class="form-control" id="cvv" placeholder="CVV">
+              </div>
+              <div class="col-sm-2 col-1"> 
+                
+              </div>
+            </div>
+          </div>
+          <!-- Payment button -->
+          <div class="row">
+            <div class="col-sm-12">
+              <button type="submit" class="btn btn-primary btn btn-primary col-12">PAY</button>
+            </div>
+          </div>
         </form>
       </div>
     <div class="col-sm-3"></div>
