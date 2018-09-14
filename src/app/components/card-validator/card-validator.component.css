@@ -13,3 +13,11 @@ input[type=number]::-webkit-outer-spin-button {
   -webkit-appearance: none; 
   margin: 0; 
 }
+
+.my-logo{
+    font-style: oblique;
+    font-family: monospace;
+    padding-left: 410px;
+    position: relative;
+    bottom: -11px;
+}
